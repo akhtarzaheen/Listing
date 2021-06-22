@@ -3,3 +3,7 @@
   margin: auto;
   margin-top: 10%;
 }
+
+.alertMessage {
+  font-size: 12px;
+}

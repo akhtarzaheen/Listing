@@ -1,13 +1,38 @@
 import { React, useState } from "react";
-import { Form, Button, Card, Container } from "react-bootstrap";
+import { Form, Button, Card, Container, Alert } from "react-bootstrap";
 import classes from "./Login.module.css";
 
 const Login = () => {
   const [inputEmail, setInputEmail] = useState();
   const [inputPassword, setInputPassword] = useState();
-
+  const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
   const formSubmitHandler = (event) => {
     event.preventDefault();
+    // console.log(localStorage.getItem("userCredentials"));
+    if (userCredentials) {
+      //   const userCredentials = JSON.parse(
+      //     localStorage.getItem("userCredentials")
+      //   );
+      // console.log(userCredentials[0]);
+      console.log(userCredentials);
+      if (userCredentials) {
+        if (
+          userCredentials[0].email === inputEmail &&
+          userCredentials[0].password === inputPassword
+        ) {
+          console.log("if user is admin");
+          const auth = {
+            isAuth: true,
+          };
+          userCredentials.push(auth);
+          localStorage.setItem(
+            "userCredentials",
+            JSON.stringify(userCredentials)
+          );
+          console.log(JSON.parse(localStorage.getItem("userCredentials")));
+        }
+      }
+    }
   };
 
   const emailChangeHandler = (event) => {
@@ -25,6 +50,11 @@ const Login = () => {
       <Card className={classes.card}>
         <Card.Body>
           <Card.Title>Sign In</Card.Title>
+          {!userCredentials && (
+            <Alert className={classes.alertMessage} variant={"danger"}>
+              No register user available
+            </Alert>
+          )}
           <Form onSubmit={formSubmitHandler}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>

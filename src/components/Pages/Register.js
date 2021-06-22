@@ -7,12 +7,22 @@ const Register = () => {
   const [inputPassword, setInputPassword] = useState();
   const [inputConfirmPassword, setInputConfirmPassword] = useState();
   const [isPasswordMatch, setIsPasswordMatch] = useState(true);
-
+  const [isReistered, setIsRegistered] = useState(false);
+  const userDetailsArray = [];
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (inputPassword === inputConfirmPassword) {
       console.log("Password Match");
       setIsPasswordMatch(true);
+      const user = {
+        email: inputEmail,
+        password: inputPassword,
+      };
+      //   userDetailsArray.push(inputEmail);
+      userDetailsArray.push(user);
+      localStorage.setItem("userCredentials", JSON.stringify(userDetailsArray));
+      console.log(JSON.parse(localStorage.getItem("userCredentials")));
+      setIsRegistered(true);
       return;
     }
     console.log("Password does not match");
@@ -40,6 +50,11 @@ const Register = () => {
         <Card.Body>
           <Card.Title>Sign Up</Card.Title>
           <br />
+          {isReistered && (
+            <Alert className={classes.alertMessage} variant={"success"}>
+              Registered successfully
+            </Alert>
+          )}
           {!isPasswordMatch && (
             <Alert className={classes.alertMessage} variant={"danger"}>
               Password doesn't match
