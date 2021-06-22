@@ -3,17 +3,37 @@ import Register from "./components/Pages/Register";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Dashboard from "./components/Pages/Dashboard";
+import Create from "./components/Pages/Create";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import fetchUser from "./components/store/user-actions";
+import { useSelector } from "react-redux";
+import Update from "./components/Pages/Update";
 function App() {
   const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
-  let isAuth = "";
-  if (isAuth) {
-    isAuth = userCredentials[1].isAuth;
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  // console.log(user);
+  // console.log(user.loggedIn);
+  console.log("inside App");
+  let isAuthentication = "";
+  let Auth = "";
+  if (user[1]) {
+    Auth = user[1].isAuth;
+  }
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
+  if (userCredentials && userCredentials.length > 1) {
+    console.log("inside userCredentials");
+    isAuthentication = userCredentials[1].isAuth;
   }
   return (
     <Layout>
       <Switch>
         <Route path="/" exact>
-          {isAuth && userCredentials ? <Dashboard /> : <Login />}
+          {Auth ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
           {/* {!userCredentials && <Login />} */}
         </Route>
         <Route path="/login">
@@ -23,8 +43,13 @@ function App() {
           <Register />
         </Route>
         <Route path="/dashboard">
-          {isAuth && userCredentials ? <Dashboard /> : <Redirect to="/" />}
-          {/* {!userCredentials && <Login />} */}
+          {Auth || isAuthentication ? <Dashboard /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/create">
+          {Auth || isAuthentication ? <Create /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/update/:id">
+          {Auth || isAuthentication ? <Update /> : <Redirect to="/login" />}
         </Route>
       </Switch>
     </Layout>

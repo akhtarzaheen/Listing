@@ -1,0 +1,21 @@
+.addTaskBtn {
+  float: right;
+}
+
+.linkBtnTask {
+  text-decoration: none;
+  font-size: 13px;
+  color: white;
+}
+
+.linkBtnTask:hover {
+  color: white;
+}
+
+.unOrderedList {
+  list-style: none;
+}
+
+.taskBtnRow {
+  margin-bottom: 5%;
+}

@@ -1,37 +1,52 @@
 import { React, useState } from "react";
 import { Form, Button, Card, Container, Alert } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import classes from "./Login.module.css";
 
 const Login = () => {
   const [inputEmail, setInputEmail] = useState();
   const [inputPassword, setInputPassword] = useState();
+  const [isValidCredentials, setIsValidCredentials] = useState(true);
+  let history = useHistory();
   const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    // console.log(localStorage.getItem("userCredentials"));
     if (userCredentials) {
-      //   const userCredentials = JSON.parse(
-      //     localStorage.getItem("userCredentials")
-      //   );
-      // console.log(userCredentials[0]);
       console.log(userCredentials);
-      if (userCredentials) {
-        if (
-          userCredentials[0].email === inputEmail &&
-          userCredentials[0].password === inputPassword
-        ) {
-          console.log("if user is admin");
-          const auth = {
-            isAuth: true,
-          };
+      console.log(inputEmail);
+      console.log(inputPassword);
+      var auth = {};
+      if (
+        userCredentials[0].email === inputEmail &&
+        userCredentials[0].password === inputPassword
+      ) {
+        setIsValidCredentials(true);
+        console.log("if user is admin");
+        if (userCredentials.length < 2) {
           userCredentials.push(auth);
+          console.log("if userCredentials greater less then 2");
           localStorage.setItem(
             "userCredentials",
             JSON.stringify(userCredentials)
           );
-          console.log(JSON.parse(localStorage.getItem("userCredentials")));
+        } else {
+          console.log("if userCredentials greater greater than 1");
+          auth = {
+            isAuth: true,
+          };
+          console.log(userCredentials[1]);
+          userCredentials[1] = auth;
+          localStorage.setItem(
+            "userCredentials",
+            JSON.stringify(userCredentials)
+          );
         }
+        console.log(JSON.parse(localStorage.getItem("userCredentials")));
+        history.push("/dashboard");
+        console.log("redirect to dashboard");
+        return;
       }
+      setIsValidCredentials(false);
     }
   };
 
@@ -50,6 +65,11 @@ const Login = () => {
       <Card className={classes.card}>
         <Card.Body>
           <Card.Title>Sign In</Card.Title>
+          {!isValidCredentials && (
+            <Alert className={classes.alertMessage} variant={"danger"}>
+              Invalid username or password
+            </Alert>
+          )}
           {!userCredentials && (
             <Alert className={classes.alertMessage} variant={"danger"}>
               No register user available
