@@ -11,6 +11,12 @@ const taskSlice = createSlice({
     addTask(state, action) {
       state.task = action.payload;
     },
+    updateTask(state, action) {
+      state.task = action.payload;
+    },
+    removeTask(state, action) {
+      state.task = action.payload;
+    },
   },
 });
 

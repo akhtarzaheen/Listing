@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from "react";
 import classes from "./Dashboard.module.css";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Button, Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import fetchTasks from "../store/task-actions";
@@ -9,10 +9,10 @@ import TodoList from "../ListComponents/TodoList";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { task } = useSelector((state) => state.task);
+  const tasks = useSelector((state) => state.task.task);
   //   console.log(tasks);
-  const newTasks = { task };
-  const tasks = newTasks.task;
+  //   const newTasks = { task };
+  //   const tasks = newTasks.task;
   console.log(tasks);
   useEffect(() => {
     dispatch(fetchTasks());
@@ -33,16 +33,26 @@ const Dashboard = () => {
         <Row>
           <Col>
             <ul className={classes.unOrderedList}>
-              {tasks.map((task) => {
-                return (
-                  <TodoList
-                    title={task.title}
-                    description={task.description}
-                    id={task.id}
-                    key={task.id}
-                  />
-                );
-              })}
+              {!tasks && (
+                <li>
+                  <Card>
+                    <Row>
+                      <Col>No Tasks Available</Col>
+                    </Row>
+                  </Card>
+                </li>
+              )}
+              {tasks &&
+                tasks.map((task) => {
+                  return (
+                    <TodoList
+                      title={task.title}
+                      description={task.description}
+                      id={task.id}
+                      key={task.id}
+                    />
+                  );
+                })}
             </ul>
           </Col>
         </Row>

@@ -3,9 +3,16 @@ import classes from "./TodoList.module.css";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { removeTask } from "../store/task-actions";
 
 const TodoList = (props) => {
   const updateLink = "/update/" + props.id;
+  const dispatch = useDispatch();
+  const deleteBtnHandler = () => {
+    console.log("inside deleteBtnHandler");
+    dispatch(removeTask(props.id));
+  };
   return (
     <li>
       <Card className={classes.card}>
@@ -19,10 +26,18 @@ const TodoList = (props) => {
             {props.description}
           </Col>
           <Col>
-            <Link to={updateLink}>
-              <EditIcon />
-            </Link>
-            <DeleteIcon />
+            <Row>
+              <Col>
+                <Link to={updateLink}>
+                  <EditIcon />
+                </Link>
+              </Col>
+              <Col>
+                <Link onClick={deleteBtnHandler}>
+                  <DeleteIcon />
+                </Link>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Card>

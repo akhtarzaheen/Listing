@@ -16,6 +16,9 @@ const Login = () => {
       console.log(inputEmail);
       console.log(inputPassword);
       var auth = {};
+      auth = {
+        isAuth: true,
+      };
       if (
         userCredentials[0].email === inputEmail &&
         userCredentials[0].password === inputPassword
@@ -31,9 +34,7 @@ const Login = () => {
           );
         } else {
           console.log("if userCredentials greater greater than 1");
-          auth = {
-            isAuth: true,
-          };
+
           console.log(userCredentials[1]);
           userCredentials[1] = auth;
           localStorage.setItem(
