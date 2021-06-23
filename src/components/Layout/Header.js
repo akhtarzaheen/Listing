@@ -7,8 +7,8 @@ import { userSliceActions } from "../store/user-slice";
 
 const Header = () => {
   const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
-  const [showLoginBtn, setShowLoginBtn] = useState(false);
-  const [showRegisterBtn, setRegisterBtn] = useState(false);
+  const [showLoginBtn, setShowLoginBtn] = useState("");
+  const [showRegisterBtn, setRegisterBtn] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   // fetching user data
