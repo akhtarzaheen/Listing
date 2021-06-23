@@ -23,7 +23,7 @@ function App() {
             <Redirect to="/login" />
           )}
         </Route>
-        <Route path="/dashboard">
+        <Route path="/dashboard" exact>
           {isAuthentication ? <Dashboard /> : <Redirect to="/login" />}
         </Route>
         <Route path="/login">
@@ -33,10 +33,10 @@ function App() {
           <Register />
         </Route>
 
-        <Route path="/create">
+        <Route path="/dashboard/create">
           {isAuthentication ? <Create /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/update/:id">
+        <Route path="/dashboard/update/:id">
           {isAuthentication ? <Update /> : <Redirect to="/login" />}
         </Route>
       </Switch>

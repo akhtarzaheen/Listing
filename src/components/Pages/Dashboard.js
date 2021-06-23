@@ -26,7 +26,7 @@ const Dashboard = () => {
       <Container className="container">
         <Row className={classes.productBtnRow}>
           <Col>
-            <Link to="/create" className={classes.linkBtnProduct}>
+            <Link to="/dashboard/create" className={classes.linkBtnProduct}>
               <Button variant="primary" className={classes.addBtnProduct}>
                 Add Product
               </Button>

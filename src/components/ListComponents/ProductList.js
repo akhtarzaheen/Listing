@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { removeProduct } from "../store/products-actions";
 
 const ProductList = (props) => {
-  const updateLink = "/update/" + props.id;
+  const updateLink = "/dashboard/update/" + props.id;
   const dispatch = useDispatch();
   const deleteBtnHandler = () => {
     // remove product from Array for selected id
