@@ -36,6 +36,10 @@ const Create = () => {
     setEnteredProductDescription(event.target.value);
   };
 
+  const backBtnHandler = () => {
+    history.goBack();
+  };
+
   return (
     <Fragment>
       <Container className="container">
@@ -68,6 +72,13 @@ const Create = () => {
             </Button>
           </Form>
         </Card>
+        <Button
+          className={classes.backBtn}
+          variant="success"
+          onClick={backBtnHandler}
+        >
+          Back
+        </Button>
       </Container>
     </Fragment>
   );
