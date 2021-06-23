@@ -80,6 +80,7 @@ const Header = () => {
             </Button>
           </NavLink>
         )}
+
         {showLoginBtn && (
           <NavLink to="/login" className={classes.linkBtnHome}>
             <Button variant="light" onClick={showRegHandle}>
