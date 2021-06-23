@@ -37,15 +37,16 @@ const Dashboard = () => {
         <Row>
           <Col>
             <ul className={classes.unOrderedList}>
-              {products && products.length === 0 && (
-                <li>
-                  <Card className={classes.card}>
-                    <Row>
-                      <Col>No Products Found</Col>
-                    </Row>
-                  </Card>
-                </li>
-              )}
+              {!products ||
+                (products && products.length === 0 && (
+                  <li>
+                    <Card className={classes.card}>
+                      <Row>
+                        <Col>No Products Found</Col>
+                      </Row>
+                    </Card>
+                  </li>
+                ))}
               {products &&
                 products.length > 0 &&
                 products.map((product) => {
