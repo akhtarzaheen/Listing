@@ -9,7 +9,6 @@ function App() {
   const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
 
   let isAuthentication = "";
-  console.log(userCredentials);
   if (userCredentials && userCredentials.length > 1) {
     isAuthentication = userCredentials[1].isAuth;
   }
@@ -25,7 +24,6 @@ function App() {
           )}
         </Route>
         <Route path="/dashboard">
-          {console.log(isAuthentication)}
           {isAuthentication ? <Dashboard /> : <Redirect to="/login" />}
         </Route>
         <Route path="/login">
