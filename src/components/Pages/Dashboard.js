@@ -11,7 +11,7 @@ import fetchUser from "../store/user-actions";
 const Dashboard = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
-
+  //fetch Products
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
