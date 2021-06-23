@@ -1,15 +1,20 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Form, Button, Card, Container, Alert } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import classes from "./Login.module.css";
+import fetchUser from "../store/user-actions";
 
 const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [isValidCredentials, setIsValidCredentials] = useState(true);
   const history = useHistory();
+  const dispatch = useDispatch();
   const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
-
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
   const formSubmitHandler = (event) => {
     event.preventDefault();
     // Add user auth variable to the local storage

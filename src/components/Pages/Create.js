@@ -1,12 +1,18 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Container, Form, Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router";
 import classes from "./Create.module.css";
+import fetchUser from "../store/user-actions";
+import { useDispatch } from "react-redux";
 
 const Create = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [enteredProductTitle, setEnteredProductTitle] = useState();
   const [enteredProductDescription, setEnteredProductDescription] = useState();
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
   const onSubmitHandler = (event) => {
     event.preventDefault();
     // Add new product to Array

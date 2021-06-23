@@ -1,27 +1,36 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Container, Form, Button, Card, Alert } from "react-bootstrap";
 import { useHistory, useParams } from "react-router";
 import classes from "./Update.module.css";
 import { updateProduct } from "../store/products-actions";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import fetchUser from "../store/user-actions";
 
 const Update = () => {
   const param = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const id = param.id;
-  const products = useSelector((state) => state.products.products);
 
+  const products = useSelector((state) => state.products.products);
+  console.log(products);
   const selectedProduct = products.find(
     (product) => product.id.toString() === id.toString()
   );
-  const [enteredProductTitle, setEnteredProductTitle] = useState(
-    selectedProduct.title
-  );
-  const [enteredProductDescription, setEnteredProductDescription] = useState(
-    selectedProduct.description
-  );
+  var selectedTitle = "";
+  var selectedDiscription = "";
+  if (selectedProduct) {
+    selectedTitle = selectedProduct.title;
+    selectedDiscription = selectedProduct.description;
+  }
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+  const [enteredProductTitle, setEnteredProductTitle] = useState(selectedTitle);
+
+  const [enteredProductDescription, setEnteredProductDescription] =
+    useState(selectedDiscription);
   const [isItemExist, setIsItemExist] = useState(false);
 
   const onSubmitHandler = (event) => {
