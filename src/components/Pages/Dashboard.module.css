@@ -1,14 +1,14 @@
-.addTaskBtn {
+.addBtnProduct {
   float: right;
 }
 
-.linkBtnTask {
+.linkBtnProduct {
   text-decoration: none;
   font-size: 13px;
   color: white;
 }
 
-.linkBtnTask:hover {
+.linkBtnProduct:hover {
   color: white;
 }
 
@@ -16,6 +16,10 @@
   list-style: none;
 }
 
-.taskBtnRow {
+.productBtnRow {
   margin-bottom: 5%;
+}
+
+.card {
+  padding: 10px;
 }

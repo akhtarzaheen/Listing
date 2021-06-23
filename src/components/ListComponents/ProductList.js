@@ -4,14 +4,14 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { removeTask } from "../store/task-actions";
+import { removeProduct } from "../store/products-actions";
 
-const TodoList = (props) => {
+const ProductList = (props) => {
   const updateLink = "/update/" + props.id;
   const dispatch = useDispatch();
   const deleteBtnHandler = () => {
-    console.log("inside deleteBtnHandler");
-    dispatch(removeTask(props.id));
+    // remove product from Array for selected id
+    dispatch(removeProduct(props.id));
   };
   return (
     <li>
@@ -45,4 +45,4 @@ const TodoList = (props) => {
   );
 };
 
-export default TodoList;
+export default ProductList;

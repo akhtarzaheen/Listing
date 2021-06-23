@@ -11,17 +11,10 @@ const Header = () => {
   const [showRegisterBtn, setRegisterBtn] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
+  // fetching user data
   const { user } = useSelector((state) => state.user);
-  // console.log(user);
-  // console.log(user.loggedIn);
-  // console.log(user);
-  // let isAuthentication = "";
-  console.log(user);
-  console.log(userCredentials);
+
   const location = window.location.href;
-  // if (userCredentials && userCredentials.length > 1) {
-  //   isAuthentication = userCredentials[1].isAuth;
-  // }
   const locationRegisterPage = location.includes("/register");
   const locationLoginPage = location.includes("/login");
   let Auth = "";
@@ -29,43 +22,37 @@ const Header = () => {
     Auth = user[1].isAuth;
   }
   useEffect(() => {
+    // show login button if user is not authenticated
     if (locationRegisterPage && user && !Auth) {
       setShowLoginBtn(true);
     }
+    // hide login button if user is authenticated
     if (Auth) {
       setShowLoginBtn(false);
     }
   }, [locationRegisterPage, Auth, user]);
 
   useEffect(() => {
+    // show register button if user is not authenticated
     if (locationLoginPage && user && !Auth) {
       setRegisterBtn(true);
     }
+    // hide register button if user is authenticated
     if (Auth) {
       setRegisterBtn(false);
     }
   }, [locationLoginPage, Auth, user]);
 
-  // if (location.includes("/login")) {
-  //   setRegisterBtn(true);
-  // }
-
   const logoutOnClickHandler = () => {
-    // var isAuth = userCredentials[1].isAuth;
-    // if (isAuthentication === true) {
     const auth = {
       isAuth: false,
     };
-    // isAuthentication = false;
     userCredentials[1] = auth;
     localStorage.setItem("userCredentials", JSON.stringify(userCredentials));
     dispatch(userSliceActions.logout());
     history.push("/login");
-    // }
-    console.log(JSON.parse(localStorage.getItem("userCredentials")));
   };
 
-  console.log(locationRegisterPage);
   const showRegHandle = () => {
     setRegisterBtn(true);
     setShowLoginBtn(false);
@@ -76,31 +63,28 @@ const Header = () => {
     setShowLoginBtn(true);
   };
 
-  console.log("showLoginBtn:", showLoginBtn);
-  console.log("showRegisterBtn", showRegisterBtn);
-
   return (
     <Fragment>
       <header className={classes.header}>
-        <h1 className={classes.headerText}>Locad_Todo</h1>
+        <h1 className={classes.headerText}>Locad_Products</h1>
         {user && Auth && (
           <Button variant="light" onClick={logoutOnClickHandler}>
             Logout
           </Button>
         )}
         {showRegisterBtn && (
-          <Button variant="light" onClick={showLoginHandler}>
-            <NavLink to="/register" className={classes.linkBtnHome}>
+          <NavLink to="/register" className={classes.linkBtnHome}>
+            <Button variant="light" onClick={showLoginHandler}>
               Register
-            </NavLink>
-          </Button>
+            </Button>
+          </NavLink>
         )}
         {showLoginBtn && (
-          <Button variant="light" onClick={showRegHandle}>
-            <NavLink to="/login" className={classes.linkBtnHome}>
+          <NavLink to="/login" className={classes.linkBtnHome}>
+            <Button variant="light" onClick={showRegHandle}>
               Login
-            </NavLink>
-          </Button>
+            </Button>
+          </NavLink>
         )}
       </header>
     </Fragment>

@@ -7,14 +7,12 @@ const Login = () => {
   const [inputEmail, setInputEmail] = useState();
   const [inputPassword, setInputPassword] = useState();
   const [isValidCredentials, setIsValidCredentials] = useState(true);
-  let history = useHistory();
+  const history = useHistory();
   const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
   const formSubmitHandler = (event) => {
     event.preventDefault();
+    // Add user auth variable to the local storage
     if (userCredentials) {
-      console.log(userCredentials);
-      console.log(inputEmail);
-      console.log(inputPassword);
       var auth = {};
       auth = {
         isAuth: true,
@@ -24,27 +22,21 @@ const Login = () => {
         userCredentials[0].password === inputPassword
       ) {
         setIsValidCredentials(true);
-        console.log("if user is admin");
         if (userCredentials.length < 2) {
           userCredentials.push(auth);
-          console.log("if userCredentials greater less then 2");
           localStorage.setItem(
             "userCredentials",
             JSON.stringify(userCredentials)
           );
         } else {
-          console.log("if userCredentials greater greater than 1");
-
-          console.log(userCredentials[1]);
           userCredentials[1] = auth;
           localStorage.setItem(
             "userCredentials",
             JSON.stringify(userCredentials)
           );
         }
-        console.log(JSON.parse(localStorage.getItem("userCredentials")));
+
         history.push("/dashboard");
-        console.log("redirect to dashboard");
         return;
       }
       setIsValidCredentials(false);
@@ -52,12 +44,10 @@ const Login = () => {
   };
 
   const emailChangeHandler = (event) => {
-    console.log(event.target.value);
     setInputEmail(event.target.value);
   };
 
   const passwordChangeHandler = (event) => {
-    console.log(event.target.value);
     setInputPassword(event.target.value);
   };
 
@@ -84,6 +74,7 @@ const Login = () => {
                 placeholder="Enter email"
                 value={inputEmail}
                 onChange={emailChangeHandler}
+                required
               />
             </Form.Group>
 
@@ -94,6 +85,7 @@ const Login = () => {
                 placeholder="Password"
                 value={inputPassword}
                 onChange={passwordChangeHandler}
+                required
               />
             </Form.Group>
             <Button variant="success" type="submit">

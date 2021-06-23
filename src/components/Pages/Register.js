@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import { Form, Button, Card, Container, Alert } from "react-bootstrap";
-// import { useHistory } from "react-router";
 import classes from "./Register.module.css";
 
 const Register = () => {
@@ -10,53 +9,42 @@ const Register = () => {
   const [isPasswordMatch, setIsPasswordMatch] = useState(true);
   const [isReistered, setIsRegistered] = useState(false);
   const [isMailIdExist, setIsMailIdExist] = useState(false);
-  //   const history = useHistory();
   const userDetailsArray = [];
   const formSubmitHandler = (event) => {
     event.preventDefault();
+    // Add user to the local storage
     if (inputPassword === inputConfirmPassword) {
-      console.log("Password Match");
       setIsPasswordMatch(true);
       const user = {
         email: inputEmail,
         password: inputPassword,
       };
-      //   userDetailsArray.push(inputEmail);
       const isUserExist = JSON.parse(localStorage.getItem("userCredentials"));
-      console.log(isUserExist);
       if (isUserExist && isUserExist[0].email === inputEmail) {
         setIsMailIdExist(true);
         setIsRegistered(false);
         return;
       }
       setIsMailIdExist(false);
-      console.log(isMailIdExist);
       userDetailsArray.push(user);
       localStorage.setItem("userCredentials", JSON.stringify(userDetailsArray));
-      console.log(JSON.parse(localStorage.getItem("userCredentials")));
       setIsRegistered(true);
-      //   history.push("/login");
       return;
     }
-    console.log("Password does not match");
     setIsPasswordMatch(false);
   };
 
   const emailChangeHandler = (event) => {
-    console.log(event.target.value);
     setInputEmail(event.target.value);
   };
 
   const passwordChangeHandler = (event) => {
-    console.log(event.target.value);
     setInputPassword(event.target.value);
   };
 
   const confirmPasswordChangeHandler = (event) => {
-    console.log(event.target.value);
     setInputConfirmPassword(event.target.value);
   };
-  //   console.log(isPasswordMatch);
   return (
     <Container>
       <Card className={classes.card}>
@@ -86,6 +74,7 @@ const Register = () => {
                 placeholder="Enter email"
                 value={inputEmail}
                 onChange={emailChangeHandler}
+                required
               />
             </Form.Group>
 
@@ -96,6 +85,7 @@ const Register = () => {
                 placeholder="Password"
                 value={inputPassword}
                 onChange={passwordChangeHandler}
+                required
               />
             </Form.Group>
             <Form.Group controlId="formBasicConfirmPassword">
@@ -105,6 +95,7 @@ const Register = () => {
                 placeholder="Password"
                 value={inputConfirmPassword}
                 onChange={confirmPasswordChangeHandler}
+                required
               />
             </Form.Group>
             <Button variant="success" type="submit">

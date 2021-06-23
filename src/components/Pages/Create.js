@@ -1,48 +1,36 @@
 import { Fragment, useState } from "react";
 import { Container, Form, Button, Card } from "react-bootstrap";
-// import { useDispatch } from "react-redux";
-// import { taskSliceActions } from "../store/task-slice";
 import classes from "./Create.module.css";
 
 const Create = () => {
-  const [enteredTaskTitle, setEnteredTaskTitle] = useState();
-  const [enteredTaskDescription, setEnteredTaskDescription] = useState();
-  //   const dispatch = useDispatch();
+  const [enteredProductTitle, setEnteredProductTitle] = useState();
+  const [enteredProductDescription, setEnteredProductDescription] = useState();
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    console.log("inside onSubmitHandler");
-    // dispatch(
-    //   taskSliceActions.addTask({
-    //     title: enteredTaskTitle,
-    //     description: enteredTaskDescription,
-    //   })
-    // );
-    const tasks = JSON.parse(localStorage.getItem("tasks"));
-    const taskObject = {
-      title: enteredTaskTitle,
-      description: enteredTaskDescription,
+    // Add new product to Array
+    const products = JSON.parse(localStorage.getItem("products"));
+    const productObject = {
+      title: enteredProductTitle,
+      description: enteredProductDescription,
       id: new Date().getUTCMilliseconds(),
     };
-    if (tasks && tasks.length > 0) {
-      console.log("if task already created");
-      tasks.push(taskObject);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
+    if (products && products.length > 0) {
+      products.push(productObject);
+      localStorage.setItem("products", JSON.stringify(products));
     } else {
-      const taskArray = [];
+      const productArray = [];
 
-      taskArray.push(taskObject);
-      localStorage.setItem("tasks", JSON.stringify(taskArray));
+      productArray.push(productObject);
+      localStorage.setItem("products", JSON.stringify(productArray));
     }
   };
 
-  const onTaskTitleChangeHandler = (event) => {
-    console.log(event.target.value);
-    setEnteredTaskTitle(event.target.value);
+  const onProductTitleChangeHandler = (event) => {
+    setEnteredProductTitle(event.target.value);
   };
 
-  const onTaskDescriptionChangeHandler = (event) => {
-    console.log(event.target.value);
-    setEnteredTaskDescription(event.target.value);
+  const onProductDescriptionChangeHandler = (event) => {
+    setEnteredProductDescription(event.target.value);
   };
 
   return (
@@ -50,24 +38,26 @@ const Create = () => {
       <Container className="container">
         <Card className={classes.card}>
           <Form onSubmit={onSubmitHandler}>
-            <Form.Group controlId="TaskTitle">
-              <Form.Label>Task Title</Form.Label>
+            <Form.Group controlId="ProductTitle">
+              <Form.Label>Product Title</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter task"
-                value={enteredTaskTitle}
-                onChange={onTaskTitleChangeHandler}
+                placeholder="Enter product"
+                value={enteredProductTitle}
+                onChange={onProductTitleChangeHandler}
+                required
               />
             </Form.Group>
 
-            <Form.Group controlId="TaskDescription">
-              <Form.Label>Task Description</Form.Label>
+            <Form.Group controlId="ProductDescription">
+              <Form.Label>Product Description</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
                 placeholder="Enter description"
-                value={enteredTaskDescription}
-                onChange={onTaskDescriptionChangeHandler}
+                value={enteredProductDescription}
+                onChange={onProductDescriptionChangeHandler}
+                required
               />
             </Form.Group>
             <Button variant="primary" type="submit">

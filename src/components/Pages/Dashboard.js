@@ -3,29 +3,26 @@ import classes from "./Dashboard.module.css";
 import { Button, Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import fetchTasks from "../store/task-actions";
+import fetchProduct from "../store/products-actions";
 import { useSelector } from "react-redux";
-import TodoList from "../ListComponents/TodoList";
+import ProductList from "../ListComponents/ProductList";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.task.task);
-  //   console.log(tasks);
-  //   const newTasks = { task };
-  //   const tasks = newTasks.task;
-  console.log(tasks);
+  const products = useSelector((state) => state.products.products);
+  // fetch updated data after page refresh
   useEffect(() => {
-    dispatch(fetchTasks());
+    dispatch(fetchProduct());
   }, [dispatch]);
 
   return (
     <Fragment>
       <Container className="container">
-        <Row className={classes.taskBtnRow}>
+        <Row className={classes.productBtnRow}>
           <Col>
-            <Link to="/create" className={classes.linkBtnTask}>
-              <Button variant="primary" className={classes.addTaskBtn}>
-                Add Task
+            <Link to="/create" className={classes.linkBtnProduct}>
+              <Button variant="primary" className={classes.addBtnProduct}>
+                Add Product
               </Button>
             </Link>
           </Col>
@@ -33,23 +30,24 @@ const Dashboard = () => {
         <Row>
           <Col>
             <ul className={classes.unOrderedList}>
-              {!tasks && (
+              {products && products.length === 0 && (
                 <li>
-                  <Card>
+                  <Card className={classes.card}>
                     <Row>
-                      <Col>No Tasks Available</Col>
+                      <Col>No Tasks Found</Col>
                     </Row>
                   </Card>
                 </li>
               )}
-              {tasks &&
-                tasks.map((task) => {
+              {products &&
+                products.length > 0 &&
+                products.map((product) => {
                   return (
-                    <TodoList
-                      title={task.title}
-                      description={task.description}
-                      id={task.id}
-                      key={task.id}
+                    <ProductList
+                      title={product.title}
+                      description={product.description}
+                      id={product.id}
+                      key={product.id}
                     />
                   );
                 })}

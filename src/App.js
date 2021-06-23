@@ -13,9 +13,7 @@ function App() {
   const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  // console.log(user);
-  // console.log(user.loggedIn);
-  console.log("inside App");
+
   let isAuthentication = "";
   let Auth = "";
   if (user[1]) {
@@ -26,7 +24,6 @@ function App() {
   }, [dispatch]);
 
   if (userCredentials && userCredentials.length > 1) {
-    console.log("inside userCredentials");
     isAuthentication = userCredentials[1].isAuth;
   }
   return (
@@ -34,7 +31,6 @@ function App() {
       <Switch>
         <Route path="/" exact>
           {Auth ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
-          {/* {!userCredentials && <Login />} */}
         </Route>
         <Route path="/login">
           <Login />
