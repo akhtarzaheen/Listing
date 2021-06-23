@@ -21,7 +21,7 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
-
+  console.log(products);
   return (
     <Fragment>
       <Container className="container">
@@ -37,16 +37,24 @@ const Dashboard = () => {
         <Row>
           <Col>
             <ul className={classes.unOrderedList}>
-              {!products ||
-                (products && products.length === 0 && (
-                  <li>
-                    <Card className={classes.card}>
-                      <Row>
-                        <Col>No Products Found</Col>
-                      </Row>
-                    </Card>
-                  </li>
-                ))}
+              {!products && (
+                <li>
+                  <Card className={classes.card}>
+                    <Row>
+                      <Col>No Products Found</Col>
+                    </Row>
+                  </Card>
+                </li>
+              )}
+              {products && products.length === 0 && (
+                <li>
+                  <Card className={classes.card}>
+                    <Row>
+                      <Col>No Products Found</Col>
+                    </Row>
+                  </Card>
+                </li>
+              )}
               {products &&
                 products.length > 0 &&
                 products.map((product) => {
