@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
-import { Container, Form, Button, Card } from "react-bootstrap";
-import { useParams } from "react-router";
+import { Container, Form, Button, Card, Alert } from "react-bootstrap";
+import { useHistory, useParams } from "react-router";
 import classes from "./Update.module.css";
 import { updateProduct } from "../store/products-actions";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 const Update = () => {
   const param = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
   const id = param.id;
   const products = useSelector((state) => state.products.products);
 
@@ -21,6 +22,7 @@ const Update = () => {
   const [enteredProductDescription, setEnteredProductDescription] = useState(
     selectedProduct.description
   );
+  const [isItemExist, setIsItemExist] = useState(false);
 
   const onSubmitHandler = (event) => {
     // update data
@@ -30,7 +32,16 @@ const Update = () => {
       description: enteredProductDescription,
       id: id,
     };
-    dispatch(updateProduct(updatedProductObject, id));
+    if (
+      enteredProductTitle === selectedProduct.title &&
+      enteredProductDescription === selectedProduct.description
+    ) {
+      setIsItemExist(true);
+    } else {
+      dispatch(updateProduct(updatedProductObject, id));
+      setIsItemExist(false);
+      history.push("/dashboard");
+    }
   };
 
   const onProductTitleChangeHandler = (event) => {
@@ -40,10 +51,20 @@ const Update = () => {
   const onProductDescriptionChangeHandler = (event) => {
     setEnteredProductDescription(event.target.value);
   };
+
+  const backBtnHandler = () => {
+    history.goBack();
+  };
+
   return (
     <Fragment>
       <Container className="container">
         <Card className={classes.card}>
+          {isItemExist && (
+            <Alert className={classes.alertMessage} variant={"danger"}>
+              Product already exist
+            </Alert>
+          )}
           <Form onSubmit={onSubmitHandler}>
             <Form.Group controlId="TaskTitle">
               <Form.Label>Product Name</Form.Label>
@@ -70,6 +91,14 @@ const Update = () => {
             </Button>
           </Form>
         </Card>
+
+        <Button
+          className={classes.backBtn}
+          variant="success"
+          onClick={backBtnHandler}
+        >
+          Back
+        </Button>
       </Container>
     </Fragment>
   );

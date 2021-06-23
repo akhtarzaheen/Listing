@@ -1,8 +1,10 @@
 import { Fragment, useState } from "react";
 import { Container, Form, Button, Card } from "react-bootstrap";
+import { useHistory } from "react-router";
 import classes from "./Create.module.css";
 
 const Create = () => {
+  const history = useHistory();
   const [enteredProductTitle, setEnteredProductTitle] = useState();
   const [enteredProductDescription, setEnteredProductDescription] = useState();
   const onSubmitHandler = (event) => {
@@ -23,6 +25,7 @@ const Create = () => {
       productArray.push(productObject);
       localStorage.setItem("products", JSON.stringify(productArray));
     }
+    history.push("/dashboard");
   };
 
   const onProductTitleChangeHandler = (event) => {

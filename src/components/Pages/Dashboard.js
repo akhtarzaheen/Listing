@@ -21,7 +21,6 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
-  console.log(products);
   return (
     <Fragment>
       <Container className="container">
