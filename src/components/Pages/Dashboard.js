@@ -6,13 +6,20 @@ import { useDispatch } from "react-redux";
 import fetchProduct from "../store/products-actions";
 import { useSelector } from "react-redux";
 import ProductList from "../ListComponents/ProductList";
+import fetchUser from "../store/user-actions";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
-  // fetch updated data after page refresh
+
   useEffect(() => {
     dispatch(fetchProduct());
+  }, [dispatch]);
+
+  // fetch updated data after page refresh
+
+  useEffect(() => {
+    dispatch(fetchUser());
   }, [dispatch]);
 
   return (
@@ -34,7 +41,7 @@ const Dashboard = () => {
                 <li>
                   <Card className={classes.card}>
                     <Row>
-                      <Col>No Tasks Found</Col>
+                      <Col>No Products Found</Col>
                     </Row>
                   </Card>
                 </li>

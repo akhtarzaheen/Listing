@@ -2,16 +2,23 @@ import { React, useState } from "react";
 import { Form, Button, Card, Container, Alert } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import classes from "./Login.module.css";
+// import { useDispatch } from "react-redux";
+// import { useEffect } from "react";
+// import fetchUser from "../store/user-actions";
 
 const Login = () => {
-  const [inputEmail, setInputEmail] = useState();
-  const [inputPassword, setInputPassword] = useState();
+  //   const dispatch = useDispatch();
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
   const [isValidCredentials, setIsValidCredentials] = useState(true);
   const history = useHistory();
   const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
+
   const formSubmitHandler = (event) => {
     event.preventDefault();
     // Add user auth variable to the local storage
+    console.log("inside");
+    // history.push("/dashboard");
     if (userCredentials) {
       var auth = {};
       auth = {
@@ -35,11 +42,13 @@ const Login = () => {
             JSON.stringify(userCredentials)
           );
         }
+        // console.log(window);
 
         history.push("/dashboard");
-        return;
+        // window.location.href = "http://localhost:3000/dashboard";
+      } else {
+        setIsValidCredentials(false);
       }
-      setIsValidCredentials(false);
     }
   };
 

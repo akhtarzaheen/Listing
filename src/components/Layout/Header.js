@@ -21,6 +21,7 @@ const Header = () => {
   if (user[1]) {
     Auth = user[1].isAuth;
   }
+
   useEffect(() => {
     // show login button if user is not authenticated
     if (locationRegisterPage && user && !Auth) {
