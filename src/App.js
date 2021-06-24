@@ -9,10 +9,9 @@ function App() {
   const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
 
   let isAuthentication = "";
-  if (userCredentials && userCredentials.length > 1) {
+  if (userCredentials && userCredentials.length > 0) {
     isAuthentication = userCredentials[1].isAuth;
   }
-
   return (
     <Layout>
       <Switch>

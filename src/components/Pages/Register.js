@@ -3,9 +3,9 @@ import { Form, Button, Card, Container, Alert } from "react-bootstrap";
 import classes from "./Register.module.css";
 
 const Register = () => {
-  const [inputEmail, setInputEmail] = useState();
-  const [inputPassword, setInputPassword] = useState();
-  const [inputConfirmPassword, setInputConfirmPassword] = useState();
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
+  const [inputConfirmPassword, setInputConfirmPassword] = useState("");
   const [isPasswordMatch, setIsPasswordMatch] = useState(true);
   const [isReistered, setIsRegistered] = useState(false);
   const [isMailIdExist, setIsMailIdExist] = useState(false);

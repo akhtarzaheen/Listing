@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import classes from "./Header.module.css";
 import { Button } from "react-bootstrap";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userSliceActions } from "../store/user-slice";
 
@@ -10,13 +10,14 @@ const Header = () => {
   const [showLoginBtn, setShowLoginBtn] = useState("");
   const [showRegisterBtn, setRegisterBtn] = useState("");
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
   // fetching user data
   const { user } = useSelector((state) => state.user);
 
-  const location = window.location.href;
-  const locationRegisterPage = location.includes("/register");
-  const locationLoginPage = location.includes("/login");
+  const loc = location.pathname;
+  const locationRegisterPage = loc.includes("/register");
+  const locationLoginPage = loc.includes("/login");
   let Auth = "";
   if (user[1]) {
     Auth = user[1].isAuth;

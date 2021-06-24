@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import { Form, Button, Card, Container, Alert } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import classes from "./Login.module.css";
 import fetchUser from "../store/user-actions";
@@ -9,7 +8,6 @@ const Login = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const [isValidCredentials, setIsValidCredentials] = useState(true);
-  const history = useHistory();
   const dispatch = useDispatch();
   const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
   useEffect(() => {
@@ -42,7 +40,7 @@ const Login = () => {
           );
         }
 
-        history.push("/dashboard");
+        // history.push("/dashboard");
         window.location.href =
           "https://crud-operations-beaf5.web.app/dashboard";
       } else {
