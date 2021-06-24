@@ -39,8 +39,6 @@ const Login = () => {
             JSON.stringify(userCredentials)
           );
         }
-
-        // history.push("/dashboard");
         window.location.href =
           "https://crud-operations-beaf5.web.app/dashboard";
       } else {
