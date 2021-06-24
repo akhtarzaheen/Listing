@@ -43,7 +43,7 @@ const Login = () => {
         }
 
         history.push("/dashboard");
-        window.location.href = "http://localhost:3000/dashboard";
+        // window.location.href = "http://localhost:3000/dashboard";
       } else {
         setIsValidCredentials(false);
       }
