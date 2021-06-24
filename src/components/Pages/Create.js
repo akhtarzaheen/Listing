@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 
 const Create = () => {
   const history = useHistory();
+
   const dispatch = useDispatch();
   const [enteredProductTitle, setEnteredProductTitle] = useState();
   const [enteredProductDescription, setEnteredProductDescription] = useState();
